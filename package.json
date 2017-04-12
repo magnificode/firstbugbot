@@ -1,0 +1,40 @@
+{
+  "name": "CongressBot",
+  "version": "1.0.0",
+  "description": "A Twitter bot that tweets bills in congress",
+  "main": "bot.js",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "firebase": "^3.7.5",
+    "firebase-admin": "^4.2.0",
+    "twit": "^2.1.1"
+  },
+  "devDependencies": {
+    "install": "^0.8.7",
+    "json-checksum": "^0.1.4",
+    "npm": "^4.2.0",
+    "xmlhttprequest": "^1.8.0"
+  },
+  "scripts": {
+    "start": "node bot.js",
+    "test": "node bot.js"
+  },
+  "repository": {
+    "type": "",
+    "url": ""
+  },
+  "keywords": [
+    "node",
+    "js",
+    "twitter",
+    "bot",
+    "debashis",
+    "barman"
+  ],
+  "author": "Dominic Magnifico",
+  "license": "http://creativecommons.org/licenses/by-sa/3.0",
+  "bugs": {
+    "url": ""
+  },
+  "homepage": ""
+}
