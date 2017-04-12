@@ -1,5 +1,5 @@
 /*!
-* CongressBot : A Twitter bot that tweets new congressional bills.
+* FirstBugBot : A Twitter bot that tweets github issues labeld 'Good First Bug'.
 * Version 1.0.0
 * Created by Dominic Magnifico (http://dommagnifi.co)
 */

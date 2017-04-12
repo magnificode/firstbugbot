@@ -1,7 +1,7 @@
 {
-  "name": "CongressBot",
+  "name": "FirstBugBot",
   "version": "1.0.0",
-  "description": "A Twitter bot that tweets bills in congress",
+  "description": "A Twitter bot that tweets github issues labeld 'Good First Bug'.",
   "main": "bot.js",
   "dependencies": {
     "dotenv": "^4.0.0",
