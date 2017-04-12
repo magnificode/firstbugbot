@@ -144,8 +144,8 @@ function BotTweet() {
   console.log('**********************');
   runCount++;
 
-  //Check the JSON file ever 6 hours.
-  setInterval(BotTweet, 6*60*60*1000);
+  //Check the JSON file every 24 hours.
+  setInterval(BotTweet, 24*60*60*1000);
 
 }
 
