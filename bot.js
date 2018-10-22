@@ -43,12 +43,12 @@ function BotInit() {
 
 function BotTweet() {
   var request = require('request');
-  var url = "https://api.github.com/search/issues?q=state:open+label:%22good+first+bug%22&sort=created";
+  var url = "https://api.github.com/search/issues?q=state:open+label:%22good+first+issue%22&sort=created";
 
   request({
     url: url,
     json: true,
-    headers: {'user-agent':'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)'}
+    headers: { 'user-agent': 'Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0)' }
   }, function (error, response, body) {
 
     // If there are no erros with the request, and the file exists, proceed.
@@ -59,16 +59,16 @@ function BotTweet() {
       let idsToTweet = {};
       let builtTweets = [];
 
-      issues.forEach( function(i){
+      issues.forEach(function (i) {
         const id = i.id;
         idsToTweet[pos] = id;
         pos++;
-      } );
+      });
 
       ref.child('tweeted').once('value', (snap) => {
         let snapVal = snap.val()
-        for( let id in idsToTweet ) {
-          if( snap.val().includes(idsToTweet[id]) ){
+        for (let id in idsToTweet) {
+          if (snap.val().includes(idsToTweet[id])) {
             console.log(idsToTweet[id] + ' has already been tweeted');
           } else {
             // Set some variables for the current bill.
@@ -77,7 +77,7 @@ function BotTweet() {
             const title = issue.title;
             const issueId = issue.id;
 
-            if( title.length >= maxlen ) {
+            if (title.length >= maxlen) {
               var truncTitle = title.substring(0, maxlen) + "...";
             } else {
               var truncTitle = title;
@@ -88,7 +88,7 @@ function BotTweet() {
             builtTweets.push(tweet);
             snapVal.push(issueId);
             console.log(snapVal);
-            
+
             ref.set({
               tweeted: snapVal
             });
@@ -96,43 +96,43 @@ function BotTweet() {
         }
 
         // Delayed foreach function to not innundate twitter with tweets. No more 100 tweet dumps.
-        Array.prototype.delayedForEach = function(callback, timeout, thisArg){
+        Array.prototype.delayedForEach = function (callback, timeout, thisArg) {
           var i = 0,
-              l = this.length,
-              self = this,
-    
-          caller = function(){
-            callback.call(thisArg || self, self[i], i, self);
-            (++i < l) && setTimeout(caller, timeout);
-          };
-    
+            l = this.length,
+            self = this,
+
+            caller = function () {
+              callback.call(thisArg || self, self[i], i, self);
+              (++i < l) && setTimeout(caller, timeout);
+            };
+
           caller();
         };
-    
+
         function staggerTweet() {
           // Tweet each tweet, waiting 15 minutes between each.
-          builtTweets.delayedForEach(function(tweet, index, array){
+          builtTweets.delayedForEach(function (tweet, index, array) {
             //Report number of tweets in the pipeline.
-            console.log( 'There are ' + builtTweets.length + ' tweets queued.' );
+            console.log('There are ' + builtTweets.length + ' tweets queued.');
             console.log('**********************');
             const toTweet = array[0];
             // If there's something to tweet.
-            if ( toTweet !== undefined ) {
+            if (toTweet !== undefined) {
               console.log(toTweet);
-              Bot.post('statuses/update', { status: toTweet }, function(err, data, response) {
-                if( toTweet ) {
+              Bot.post('statuses/update', { status: toTweet }, function (err, data, response) {
+                if (toTweet) {
                   console.log('Tweeted: ' + toTweet);
                   console.log('**********************');
                 }
-                if( err ) {
+                if (err) {
                   console.log(err);
                 }
               });
             }
-            builtTweets.splice( 0,1 );
-          }, 15*60*1000); //15 minutes
+            builtTweets.splice(0, 1);
+          }, 15 * 60 * 1000); //15 minutes
         }
-        
+
         staggerTweet();
       });
     } else {
@@ -145,7 +145,7 @@ function BotTweet() {
   runCount++;
 
   //Check the JSON file every 24 hours.
-  setInterval(BotTweet, 24*60*60*1000);
+  setInterval(BotTweet, 24 * 60 * 60 * 1000);
 
 }
 
