@@ -83,7 +83,14 @@ function BotTweet() {
               var truncTitle = title;
             }
 
-            const tweet = "Fresh bug here! '" + truncTitle + "' " + link;
+            const tweetVariations = [
+              `Fresh bug here! '${truncTitle}' ${link}`,
+              `Looking for your first open source contribution? Try this! '${truncTitle}' ${link}'`,
+              `No better time than now to tackle your first open source contribution! '${truncTitle}' ${link}`,
+              `Open source thrives when you're able to contribute. Maybe this is a good issue for you! '${truncTitle}' ${link}`
+            ]
+
+            const tweet = tweetVariations[Math.floor(Math.random() * tweetVariations.length)];
 
             builtTweets.push(tweet);
             snapVal.push(issueId);
